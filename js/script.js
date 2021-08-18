@@ -59,8 +59,6 @@ document.querySelector('.submit-btn').addEventListener('click', (e) => {
         }).then((response) => {
             document.querySelector('.form').reset();
         });
-
-        // window.location.href = '/';
     }
 });
 
