@@ -57,7 +57,7 @@ document.querySelector('.submit-btn').addEventListener('click', (e) => {
                 'Content-Type': 'application/json',
             },
         }).then((response) => {
-            return response;
+            document.querySelector('.form').reset();
         });
 
         // window.location.href = '/';
