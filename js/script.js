@@ -50,7 +50,17 @@ document.querySelector('.submit-btn').addEventListener('click', (e) => {
         select.value ? removeErrorClass(select) : addErrorClass(select);
     });
     if (!validateCount.size) {
-        window.location.href = '/';
+        fetch('send.php', {
+            body: new FormData(document.querySelector('.form')),
+            method: 'POST',
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+            });
+        // window.location.href = '/';
     }
 });
 
@@ -78,38 +88,35 @@ document.querySelector('.overlay').addEventListener('click', () => {
     document.querySelector('.terms-popup').classList.remove('is-active');
 });
 
-
-const hiddenElement = document.getElementById("form-section");
+const hiddenElement = document.getElementById('form-section');
 function handleButtonClick() {
-    hiddenElement.scrollIntoView({block: "center", behavior: "smooth"});
- }
-const btn = document.querySelectorAll('.btn').forEach(btn => {
+    hiddenElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+const btn = document.querySelectorAll('.btn').forEach((btn) => {
     btn.addEventListener('click', handleButtonClick);
-})
+});
 
-var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
-var rootElement = document.documentElement
+var scrollToTopBtn = document.querySelector('.scrollToTopBtn');
+var rootElement = document.documentElement;
 
 function handleScroll() {
-  // Do something on scroll
-  var scrollTotal = rootElement.scrollHeight - rootElement.clientHeight
-  if ((rootElement.scrollTop / scrollTotal ) > 0.3) {
-    // Show button
-    scrollToTopBtn.classList.add("showBtn")
-  } else {
-    // Hide button
-    scrollToTopBtn.classList.remove("showBtn")
-  }
+    // Do something on scroll
+    var scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+    if (rootElement.scrollTop / scrollTotal > 0.3) {
+        // Show button
+        scrollToTopBtn.classList.add('showBtn');
+    } else {
+        // Hide button
+        scrollToTopBtn.classList.remove('showBtn');
+    }
 }
 
 function scrollToTop() {
-  // Scroll to top logic
-  rootElement.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  })
+    // Scroll to top logic
+    rootElement.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
 }
-scrollToTopBtn.addEventListener("click", scrollToTop)
-document.addEventListener("scroll", handleScroll)
-
-
+scrollToTopBtn.addEventListener('click', scrollToTop);
+document.addEventListener('scroll', handleScroll);
