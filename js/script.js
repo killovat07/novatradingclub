@@ -53,13 +53,13 @@ document.querySelector('.submit-btn').addEventListener('click', (e) => {
         fetch('send.php', {
             body: new FormData(document.querySelector('.form')),
             method: 'POST',
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-            });
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            return response;
+        });
+
         // window.location.href = '/';
     }
 });

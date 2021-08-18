@@ -1,13 +1,12 @@
 <?php
+if ($_POST) {
 
-if($_POST) {
-    $data=[
-        'status'=>'success',
-    ]
+    $data = [
+        'status' => 'success',
+    ];
 
     echo json_encode($data);
-    
-    die();
-}
 
+    die();    
+}
 ?>
