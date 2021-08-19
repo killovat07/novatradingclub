@@ -105,36 +105,39 @@ function scrollToTop() {
 scrollToTopBtn.addEventListener('click', scrollToTop);
 document.addEventListener('scroll', handleScroll);
 
-//form
-var form = document.querySelector('.form');
+jQuery(document).ready(function ($) {
+    //form
+    var form = document.querySelector('.form');
 
-form.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    var fieds = this.elements;
+    form.addEventListener('submit', function (evt) {
+        evt.preventDefault();
 
-    var serializedData = $(this).serialize();
+        document.querySelectorAll('form input').forEach((input) => {
+            input.value ? removeErrorClass(input) : addErrorClass(input);
+        });
+        document.querySelectorAll('form select').forEach((select) => {
+            select.value ? removeErrorClass(select) : addErrorClass(select);
+        });
 
-    var request = $.ajax({
-        url: 'send.php',
-        type: 'post',
-        data: serializedData,
-    });
+        if (!validateCount.size) {
+            var serializedData = $(this).serialize();
 
-    for (i = 0; i < fieds.length; i++) {
-        if (fieds[i].value) {
-            $('.loader').fadeIn();
+            var request = $.ajax({
+                url: 'send.php',
+                type: 'post',
+                data: serializedData,
+            });
+            document.querySelector('.loader').classList.add('is-active');
             setTimeout(function () {
-                $('.loader .title').fadeIn();
-                $('.lds-spinner').fadeOut();
-                form.reset();
+                document.querySelector('.loader').classList.add('animate');
             }, 1500);
-
             setTimeout(function () {
                 request.always(function () {
-                    $('.loader').fadeOut();
-                    form.reset();
+                    document.querySelector('.loader').classList.remove('is-active');
+                    document.querySelector('.loader').classList.remove('animate');
+                    document.querySelector('.form').reset();
                 });
             }, 3000);
         }
-    }
+    });
 });
