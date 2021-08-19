@@ -49,15 +49,22 @@ document.querySelector('.submit-btn').addEventListener('click', (e) => {
     document.querySelectorAll('form select').forEach((select) => {
         select.value ? removeErrorClass(select) : addErrorClass(select);
     });
+
     if (!validateCount.size) {
         fetch('send.php', {
             body: new FormData(document.querySelector('.form')),
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
         }).then((response) => {
-            document.querySelector('.form').reset();
+            console.log(response);
+            document.querySelector('.loader').classList.add('is-active');
+            setTimeout(function () {
+                document.querySelector('.loader').classList.add('animate');
+            }, 1500);
+            setTimeout(function () {
+                document.querySelector('.loader').classList.remove('is-active');
+                document.querySelector('.loader').classList.remove('animate');
+                document.querySelector('.form').reset();
+            }, 3000);
         });
     }
 });
