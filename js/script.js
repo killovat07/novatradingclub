@@ -1,23 +1,6 @@
-/* Tabs */
-
-// const tabTitle = document.querySelectorAll('.tab-title');
-// const tabContent = document.querySelectorAll('.tab-content');
-
-// tabTitle.forEach((tab) => {
-//     tab.addEventListener('click', () => {
-//         tabTitle.forEach((el) => el.classList.remove('is-active'));
-//         tabContent.forEach((el) => el.classList.remove('is-active'));
-
-//         const tabCount = tab.getAttribute('data-tab');
-//         document.querySelectorAll(`[data-tab="${tabCount}"]`).forEach((el) => el.classList.add('is-active'));
-//     });
-// });
-
 // Input change
 let validateCount = new Set();
-const addFocus = (el) => {
-    // el.closest('.form-field').classList.add('is-focused');
-};
+const addFocus = (el) => {};
 
 const removeFocus = (el) => {
     el.closest('.form-field').classList.remove('is-focused');
@@ -74,10 +57,6 @@ document.querySelector('.policy').addEventListener('click', () => {
     document.querySelector('.wrapper').classList.add('popup-open');
     document.querySelector('.policy-popup').classList.add('is-active');
 });
-// document.querySelector('.terms').addEventListener('click', () => {
-//     document.querySelector('.wrapper').classList.add('popup-open');
-//     document.querySelector('.terms-popup').classList.add('is-active');
-// });
 
 document.querySelectorAll('.close-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -126,38 +105,36 @@ function scrollToTop() {
 scrollToTopBtn.addEventListener('click', scrollToTop);
 document.addEventListener('scroll', handleScroll);
 
-jQuery(document).ready(function ($) {
-    //form
-    var form = document.querySelector('.form');
+//form
+var form = document.querySelector('.form');
 
-    form.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-        var fieds = this.elements;
+form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    var fieds = this.elements;
 
-        var serializedData = $(this).serialize();
+    var serializedData = $(this).serialize();
 
-        var request = $.ajax({
-            url: 'send.php',
-            type: 'post',
-            data: serializedData,
-        });
-
-        //   for (i = 0; i < fieds.length; i++) {
-        //     if (fieds[i].value) {
-        //       $(".loader").fadeIn();
-        //       setTimeout(function () {
-        //         $(".loader .title").fadeIn();
-        //         $(".lds-spinner").fadeOut();
-        //         form.reset();
-        //       }, 1500);
-
-        //       setTimeout(function () {
-        //         request.always(function () {
-        //           $(".loader").fadeOut();
-        //           form.reset();
-        //         });
-        //       }, 3000);
-        //     }
-        //   }
+    var request = $.ajax({
+        url: 'send.php',
+        type: 'post',
+        data: serializedData,
     });
+
+    for (i = 0; i < fieds.length; i++) {
+        if (fieds[i].value) {
+            $('.loader').fadeIn();
+            setTimeout(function () {
+                $('.loader .title').fadeIn();
+                $('.lds-spinner').fadeOut();
+                form.reset();
+            }, 1500);
+
+            setTimeout(function () {
+                request.always(function () {
+                    $('.loader').fadeOut();
+                    form.reset();
+                });
+            }, 3000);
+        }
+    }
 });
