@@ -74,10 +74,6 @@ document.querySelector('.policy').addEventListener('click', () => {
     document.querySelector('.wrapper').classList.add('popup-open');
     document.querySelector('.policy-popup').classList.add('is-active');
 });
-// document.querySelector('.terms').addEventListener('click', () => {
-//     document.querySelector('.wrapper').classList.add('popup-open');
-//     document.querySelector('.terms-popup').classList.add('is-active');
-// });
 
 document.querySelectorAll('.close-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
