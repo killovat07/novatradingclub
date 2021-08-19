@@ -41,39 +41,43 @@ document.querySelectorAll('form input').forEach((input) => {
     });
 });
 
-document.querySelector('.submit-btn').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelectorAll('form input').forEach((input) => {
-        input.value ? removeErrorClass(input) : addErrorClass(input);
-    });
-    document.querySelectorAll('form select').forEach((select) => {
-        select.value ? removeErrorClass(select) : addErrorClass(select);
-    });
+// document.querySelector('.submit-btn').addEventListener('click', (e) => {
+//     e.preventDefault();
+//     document.querySelectorAll('form input').forEach((input) => {
+//         input.value ? removeErrorClass(input) : addErrorClass(input);
+//     });
+//     document.querySelectorAll('form select').forEach((select) => {
+//         select.value ? removeErrorClass(select) : addErrorClass(select);
+//     });
 
-    if (!validateCount.size) {
-        fetch('send.php', {
-            body: new FormData(document.querySelector('.form')),
-            method: 'POST',
-        }).then((response) => {
-            console.log(response);
-            document.querySelector('.loader').classList.add('is-active');
-            setTimeout(function () {
-                document.querySelector('.loader').classList.add('animate');
-            }, 1500);
-            setTimeout(function () {
-                document.querySelector('.loader').classList.remove('is-active');
-                document.querySelector('.loader').classList.remove('animate');
-                document.querySelector('.form').reset();
-            }, 3000);
-        });
-    }
-});
+//     if (!validateCount.size) {
+//         fetch('send.php', {
+//             body: new FormData(document.querySelector('.form')),
+//             method: 'POST',
+//         }).then((response) => {
+//             console.log(response);
+//             document.querySelector('.loader').classList.add('is-active');
+//             setTimeout(function () {
+//                 document.querySelector('.loader').classList.add('animate');
+//             }, 1500);
+//             setTimeout(function () {
+//                 document.querySelector('.loader').classList.remove('is-active');
+//                 document.querySelector('.loader').classList.remove('animate');
+//                 document.querySelector('.form').reset();
+//             }, 3000);
+//         });
+//     }
+// });
 
 /* TERMS Policy */
 document.querySelector('.policy').addEventListener('click', () => {
     document.querySelector('.wrapper').classList.add('popup-open');
     document.querySelector('.policy-popup').classList.add('is-active');
 });
+// document.querySelector('.terms').addEventListener('click', () => {
+//     document.querySelector('.wrapper').classList.add('popup-open');
+//     document.querySelector('.terms-popup').classList.add('is-active');
+// });
 
 document.querySelectorAll('.close-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -121,3 +125,39 @@ function scrollToTop() {
 }
 scrollToTopBtn.addEventListener('click', scrollToTop);
 document.addEventListener('scroll', handleScroll);
+
+jQuery(document).ready(function ($) {
+    //form
+    var form = document.querySelector('.form');
+
+    form.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+        var fieds = this.elements;
+
+        var serializedData = $(this).serialize();
+
+        var request = $.ajax({
+            url: 'send.php',
+            type: 'post',
+            data: serializedData,
+        });
+
+        //   for (i = 0; i < fieds.length; i++) {
+        //     if (fieds[i].value) {
+        //       $(".loader").fadeIn();
+        //       setTimeout(function () {
+        //         $(".loader .title").fadeIn();
+        //         $(".lds-spinner").fadeOut();
+        //         form.reset();
+        //       }, 1500);
+
+        //       setTimeout(function () {
+        //         request.always(function () {
+        //           $(".loader").fadeOut();
+        //           form.reset();
+        //         });
+        //       }, 3000);
+        //     }
+        //   }
+    });
+});
